@@ -1,0 +1,27 @@
+snippet str
+	use strict;
+	use warnings;
+
+snippet test
+	use strict;
+	use warnings;
+	use Test::More;
+
+	${1}
+
+	done_testing;
+
+snippet moo
+	package ${1};
+
+	use Moose;
+	use namespace::autoclean;
+
+	__PACKAGE__->meta->make_immutable;
+	1;
+
+snippet has
+	has => (
+		is  => 'ro',
+		isa => '${1}',
+	);
