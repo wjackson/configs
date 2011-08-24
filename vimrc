@@ -4,6 +4,7 @@ filetype plugin on
 filetype indent on
 colorscheme wombat256
 
+set t_Co=256
 set autoindent
 set textwidth=78
 set backspace=indent,eol,start
@@ -30,6 +31,8 @@ nnoremap t :Tlist<CR>
 
 " CommandT
 map ,t :CommandT<CR>
+map ,b :CommandTBuffer<CR>
+let g:CommandTMaxFiles=20000
 
 " put cursor in the right place after a '.'
 nmap . .`[
@@ -82,6 +85,18 @@ map <Leader>s :nohlsearch<cr>
 map <Leader>a :Ack <cword><CR>
 
 "
+" remove end of line whitespace on write
+autocmd BufWritePre *.pl,*.pm,*.t,*.pod :call RmEolWhiteSpace()
+function! RmEolWhiteSpace()
+    let s:curLine = line('.')
+    let s:curCol  = col('.')
+
+    %s/\s\+$//e
+
+    call cursor(s:curLine, s:curCol)
+endfunction
+
+"
 " perl stuff
 "
 
@@ -91,6 +106,11 @@ autocmd BufNewFile,BufRead *.t  set filetype=perl
 autocmd BufNewFile,BufRead *.p? set makeprg=perl\ -c\ %
 autocmd BufNewFile,BufRead *.t  set makeprg=perl\ -c\ %
 
+autocmd BufNewFile,BufRead *.yml setlocal iskeyword=48-57,_,A-Z,a-z,-,:
+autocmd BufNewFile,BufRead *.pl setlocal iskeyword=48-57,_,A-Z,a-z,:
+autocmd BufNewFile,BufRead *.pm setlocal iskeyword=48-57,_,A-Z,a-z,:
+autocmd BufNewFile,BufRead *.t setlocal iskeyword=48-57,_,A-Z,a-z,:
+
 " Perl Tidy
 nnoremap <silent> _t :%!perltidy -q<Enter>
 vnoremap <silent> _t :!perltidy -q<Enter>
@@ -98,7 +118,7 @@ vnoremap <silent> _t :!perltidy -q<Enter>
 " add a use line for the word under the cursor
 "
 " make sure you have
-setlocal iskeyword=48-57,_,A-Z,a-z,:
+" setlocal iskeyword=48-57,_,A-Z,a-z,-,:
 " so colons are recognized as part of a keyword
 function! PerlAddUseStatement()
     let s:package = input('Package? ', expand('<cword>'))
