@@ -32,3 +32,4 @@ URxvt.color7  : #D3D7CF
 URxvt.color15 : #EEEEEC
 
 URxvt*font: xft:DejaVuSansMono:pixelsize=13
+URxvt.perl-ext-common: default,matcher,clipboard
