@@ -4,6 +4,7 @@ filetype plugin on
 filetype indent on
 colorscheme wombat256
 
+set term=screen-256color
 set t_Co=256
 set autoindent
 set textwidth=78
@@ -20,6 +21,8 @@ set vb t_vb=
 set showmatch
 set viminfo='10,\"100,:20,%,n~/.viminfo
 
+set tags+=,~/ctags/perl.tags,~/ctags/git.tags,~/ctags/haskell.tags
+
 " move between windows
 nnoremap <C-h> <C-W>h
 nnoremap <C-j> <C-W>j
@@ -28,6 +31,8 @@ nnoremap <C-l> <C-W>l
 
 " Tag list
 nnoremap t :Tlist<CR>
+
+nnoremap <silent> f :NERDTreeToggle<CR>
 
 " CommandT
 map ,t :CommandT<CR>
@@ -50,6 +55,7 @@ set incsearch
 " use <Ctrl>+N/<Ctrl>+P to cycle through buffers:
 nnoremap <C-N> :bn<CR>
 nnoremap <C-P> :bN<CR>
+nnoremap <silent> <C-C> :!ltags<Enter><Enter>
 
 " highlight the current column on <F8>
 highlight CursorColumn cterm=none
@@ -60,6 +66,7 @@ nnoremap <F8> :set invcursorcolumn<CR>
 highlight CursorLine cterm=none
 highlight CursorLine ctermbg=blue
 nnoremap <F9> :set invcursorline<CR>
+
 
 " folding options
 set foldmethod=indent
@@ -86,7 +93,8 @@ map <Leader>a :Ack <cword><CR>
 
 "
 " remove end of line whitespace on write
-autocmd BufWritePre *.pl,*.pm,*.t,*.pod :call RmEolWhiteSpace()
+" autocmd BufWritePre *.pl,*.pm,*.t,*.pod :call RmEolWhiteSpace()
+map <Leader>w :call RmEolWhiteSpace()<CR>
 function! RmEolWhiteSpace()
     let s:curLine = line('.')
     let s:curCol  = col('.')
@@ -99,6 +107,7 @@ endfunction
 "
 " perl stuff
 "
+autocmd FileType perl :noremap K :!perldoc <cword> <bar><bar> perldoc -f <cword><CR><CR>
 
 " Use perl compiler for all *.pl and *.pm files.
 autocmd BufNewFile,BufRead *.p? compiler perl
