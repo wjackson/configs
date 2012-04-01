@@ -1,8 +1,13 @@
-syntax on
 filetype on
 filetype plugin on
 filetype indent on
-colorscheme wombat256
+
+" solarized settings
+let g:solarized_contrast="high"    "default value is normal
+let g:solarized_hitrail=1    "default value is 0
+syntax enable
+set background=dark
+colorscheme solarized
 
 set term=screen-256color
 set t_Co=256
