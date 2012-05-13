@@ -122,7 +122,6 @@ highlight CursorLine cterm=none
 highlight CursorLine ctermbg=blue
 nnoremap <F9> :set invcursorline<CR>
 
-
 " folding options
 " set foldmethod=indent
 " autocmd BufNewFile,BufRead * execute "normal " "zR"
@@ -133,6 +132,9 @@ set matchpairs+=<:>
 
 " Toggle paste mode
 set pastetoggle=<F10>
+
+" Edit at the end of the line
+imap <C-e> <ESC>A
 
 " Use the termcap that comes with vim
 " set ttybuiltin
