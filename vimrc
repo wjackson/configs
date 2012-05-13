@@ -28,20 +28,57 @@ set viminfo='10,\"100,:20,%,n~/.viminfo
 
 set tags+=,~/ctags/perl.tags,~/ctags/git.tags,~/ctags/haskell.tags
 
+" use the xselection buffer
+set clipboard=unnamed
+
+" reselect visual block after indent/outdent
+vnoremap < <gv
+vnoremap > >gv
+
 " move between windows
 nnoremap <C-h> <C-W>h
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 
+" set leader
+let mapleader = ","
+
+" Jump to the start/end of the line using home row keys
+noremap H ^
+noremap L $
+
+" toggle invisibles
+noremap <Leader>i :set list!<CR>
+
+" set invisibles
+set list
+" set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+set listchars=tab:▸\ ,trail:⋅,extends:❯,precedes:❮
+set showbreak=↪
+
+" return to last buffer
+noremap <Leader><Leader> <C-^>
+
+" spell check git commit messages
+autocmd BufRead COMMIT_EDITMSG setlocal spell!
+
 " Tag list
 nnoremap t :Tlist<CR>
 
 nnoremap <silent> f :NERDTreeToggle<CR>
 
+" drag current line/s vertically
+noremap  J :m+<CR>
+noremap  K :m-2<CR>
+inoremap J <Esc>:m+<CR>
+inoremap K <Esc>:m-2<CR>
+vnoremap J :m'>+<CR>gv
+vnoremap K :m-2<CR>gv
+
 " CommandT
-map ,t :CommandT<CR>
-map ,b :CommandTBuffer<CR>
+map <Leader>t :CommandT<CR>
+map <Leader>b :CommandTBuffer<CR>
 let g:CommandTMaxFiles=20000
 
 " put cursor in the right place after a '.'
@@ -62,6 +99,24 @@ nnoremap <C-N> :bn<CR>
 nnoremap <C-P> :bN<CR>
 nnoremap <silent> <C-C> :!ltags<Enter><Enter>
 
+" pop open a tmux debug pane below
+map <Leader>d :call TmuxDebugOpen()<CR>
+map <Leader>D :call TmuxDebugClose()<CR>
+map <silent> <Leader>x :w<CR>:call TmuxDebugRerun()<CR>
+
+function! TmuxDebugOpen()
+    let output = system('tmux split-window -l 12 && tmux select-pane -t 0')
+endfunction
+
+function! TmuxDebugClose()
+    let output = system('tmux kill-pane -t 1')
+endfunction
+
+function! TmuxDebugRerun()
+    let output = system('tmux send-keys -t 1 ')
+endfunction
+
+
 " highlight the current column on <F8>
 highlight CursorColumn cterm=none
 highlight CursorColumn ctermbg=blue
@@ -74,8 +129,8 @@ nnoremap <F9> :set invcursorline<CR>
 
 
 " folding options
-set foldmethod=indent
-autocmd BufNewFile,BufRead * execute "normal " "zR"
+" set foldmethod=indent
+" autocmd BufNewFile,BufRead * execute "normal " "zR"
 "nnoremap  <silent>  <space> :exe 'silent! normal! za'.(foldlevel('.')?'':'l')<cr>
 
 " Treat angle brackets as matchable pairs
@@ -96,6 +151,9 @@ map <Leader>s :nohlsearch<cr>
 " ack for the word under the cursor
 map <Leader>a :Ack <cword><CR>
 
+" Highlight word at cursor without changing position
+nnoremap <Leader>h *<C-O>
+
 "
 " remove end of line whitespace on write
 " autocmd BufWritePre *.pl,*.pm,*.t,*.pod :call RmEolWhiteSpace()
@@ -112,7 +170,7 @@ endfunction
 "
 " perl stuff
 "
-autocmd FileType perl :noremap K :!perldoc <cword> <bar><bar> perldoc -f <cword><CR><CR>
+" autocmd FileType perl :noremap K :!perldoc <cword> <bar><bar> perldoc -f <cword><CR><CR>
 
 " Use perl compiler for all *.pl and *.pm files.
 autocmd BufNewFile,BufRead *.p? compiler perl
@@ -163,7 +221,7 @@ function! PerlAddUseStatement()
     endif
 endfunction
 
-map ,us :<C-u>call PerlAddUseStatement()<CR>
+map <Leader>us :<C-u>call PerlAddUseStatement()<CR>
 
 "
 " end of perl stuff
@@ -196,3 +254,34 @@ imap <esc>Ow 7
 imap <esc>Ox 8
 imap <esc>Oy 9
 imap <esc>Oz 0
+
+" pairs
+noremap! "" ""<left>
+noremap! '' ''<left>
+
+noremap! (( ()<left>
+noremap! (<cr> (<cr>)<c-o>O
+noremap! (; ();<esc>hi
+" noremap! (<cr>; (<cr>);<c-o>O
+noremap! ('; ('');<esc>hhi
+noremap! ("; ("");<esc>hhi
+noremap! (' ('')<esc>hi
+noremap! (" ("")<esc>hi
+
+noremap! {{ {}<left>
+noremap! {<cr> {<cr>}<c-o>O
+noremap! {; {};<esc>hi
+" noremap! {<cr>; {<cr>};<c-o>O
+noremap! {'; {''};<esc>hhi
+noremap! {"; {""};<esc>hhi
+noremap! {' {''}<esc>hi
+noremap! {" {""}<esc>hi
+
+noremap! [[ []<left>
+noremap! [<cr> [<cr>]<c-o>O
+noremap! [; [];<esc>hi
+noremap! [<cr>; [<cr>];<c-o>O
+noremap! ['; [''];<esc>hhi
+noremap! ["; [""];<esc>hhi
+noremap! [' ['']<esc>hi
+noremap! [" [""]<esc>hi
