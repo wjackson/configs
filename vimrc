@@ -61,7 +61,7 @@ autocmd BufRead COMMIT_EDITMSG setlocal spell!
 " Tag list
 nnoremap t :Tlist<CR>
 
-nnoremap <silent> f :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>f :NERDTreeToggle<CR>
 
 " drag current line/s vertically
 noremap  J :m+<CR>
