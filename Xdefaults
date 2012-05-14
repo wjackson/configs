@@ -1,5 +1,4 @@
-
-URxvt*background: #000000
+URxvt*background: #1c1c1c
 URxvt*foreground: #ffffff
 
 URxvt*scrollBar_right: false
@@ -31,5 +30,6 @@ URxvt.color14 : #34E2E2
 URxvt.color7  : #D3D7CF
 URxvt.color15 : #EEEEEC
 
+! URxvt.font: xft:Bitstream Vera Sans Mono-9:spacing=mono:antialias=true:autohint=true:dpi=120
 URxvt.font: xft:DejaVu Sans Mono-9:spacing=mono:antialias=true:autohint=true:dpi=120
 URxvt.perl-ext-common: default,matcher,clipboard
