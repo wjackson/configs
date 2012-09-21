@@ -4,7 +4,8 @@ filetype plugin on
 filetype indent on
 colorscheme wombat256
 
-set term=screen-256color
+set nu
+set term=rxvt-unicode-256color
 set t_Co=256
 set autoindent
 set textwidth=78
@@ -46,6 +47,16 @@ noremap L $
 " toggle invisibles
 noremap <Leader>i :set list!<CR>
 
+" toggle invisibles
+nnoremap <Leader>r :call g:ToggleNuMode()<CR>
+function! g:ToggleNuMode()
+    if(&rnu == 1)
+        set nu
+    else
+        set rnu
+    endif
+endfunc
+
 " set invisibles
 set list
 " set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
@@ -73,8 +84,15 @@ vnoremap K :m-2<CR>gv
 
 " CommandT
 map <Leader>t :CommandT<CR>
-map <Leader>b :CommandTBuffer<CR>
+map <Leader>T :CommandTBuffer<CR>
+" map <Leader>t :CtrlP<CR>
+" map <Leader>T :CtrlPBuffer<CR>
+" map <Leader>m :CtrlPBuffer<CR>
+
 let g:CommandTMaxFiles=20000
+let g:ctrlp_map = ''  " Leave this empty to disable the default mapping
+" let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_max_height = 50
 
 " put cursor in the right place after a '.'
 nmap . .`[
@@ -253,32 +271,32 @@ imap <esc>Oy 9
 imap <esc>Oz 0
 
 " pairs
-noremap! "" ""<left>
-noremap! '' ''<left>
-
-noremap! (( ()<left>
-noremap! (<cr> (<cr>)<c-o>O
-noremap! (; ();<esc>hi
+" noremap! "" ""<left>
+" noremap! '' ''<left>
+"
+" noremap! (( ()<left>
+" noremap! (<cr> (<cr>)<c-o>O
+" noremap! (; ();<esc>hi
 " noremap! (<cr>; (<cr>);<c-o>O
-noremap! ('; ('');<esc>hhi
-noremap! ("; ("");<esc>hhi
-noremap! (' ('')<esc>hi
-noremap! (" ("")<esc>hi
-
-noremap! {{ {}<left>
+" noremap! ('; ('');<esc>hhi
+" noremap! ("; ("");<esc>hhi
+" noremap! (' ('')<esc>hi
+" noremap! (" ("")<esc>hi
+"
+" noremap! {{ {}<left>
 noremap! {<cr> {<cr>}<c-o>O
-noremap! {; {};<esc>hi
-" noremap! {<cr>; {<cr>};<c-o>O
-noremap! {'; {''};<esc>hhi
-noremap! {"; {""};<esc>hhi
-noremap! {' {''}<esc>hi
-noremap! {" {""}<esc>hi
-
-noremap! [[ []<left>
-noremap! [<cr> [<cr>]<c-o>O
-noremap! [; [];<esc>hi
-noremap! [<cr>; [<cr>];<c-o>O
-noremap! ['; [''];<esc>hhi
-noremap! ["; [""];<esc>hhi
-noremap! [' ['']<esc>hi
-noremap! [" [""]<esc>hi
+" noremap! {; {};<esc>hi
+" " noremap! {<cr>; {<cr>};<c-o>O
+" noremap! {'; {''};<esc>hhi
+" noremap! {"; {""};<esc>hhi
+" noremap! {' {''}<esc>hi
+" noremap! {" {""}<esc>hi
+"
+" noremap! [[ []<left>
+" noremap! [<cr> [<cr>]<c-o>O
+" noremap! [; [];<esc>hi
+" noremap! [<cr>; [<cr>];<c-o>O
+" noremap! ['; [''];<esc>hhi
+" noremap! ["; [""];<esc>hhi
+" noremap! [' ['']<esc>hi
+" noremap! [" [""]<esc>hi
