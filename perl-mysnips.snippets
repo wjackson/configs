@@ -1,12 +1,12 @@
 snippet str
 	use strict;
 	use warnings;
-	use v5.10;
+	use v5.16;
 
 snippet test
 	use strict;
 	use warnings;
-	use v5.10;
+	use v5.16;
 	use Test::More;
 
 	${1}
@@ -26,4 +26,18 @@ snippet has
 	has ${1} => (
 		is  => 'ro',
 		isa => '${2}',
+	);
+
+snippet hhas
+	has ${1} => (
+		is      => 'ro',
+		isa     => 'HashRef',
+		default => sub { {} },
+	);
+
+snippet ahas
+	has ${1} => (
+		is      => 'ro',
+		isa     => 'ArrayRef',
+		default => sub { [] },
 	);
