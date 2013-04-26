@@ -2,7 +2,7 @@ syntax on
 filetype on
 filetype plugin on
 filetype indent on
-colorscheme wombat256
+colorscheme wombat256-dylan
 
 set nu
 set term=rxvt-unicode-256color
@@ -15,7 +15,6 @@ set expandtab
 set shiftwidth=4
 set shiftround
 
-set shiftwidth=4
 set ruler
 set hlsearch
 set vb t_vb=
@@ -83,16 +82,9 @@ vnoremap J :m'>+<CR>gv
 vnoremap K :m-2<CR>gv
 
 " CommandT
-map <Leader>t :CommandT<CR>
-map <Leader>T :CommandTBuffer<CR>
-" map <Leader>t :CtrlP<CR>
-" map <Leader>T :CtrlPBuffer<CR>
-" map <Leader>m :CtrlPBuffer<CR>
-
+map <Leader>g :CommandT<CR>
+map <Leader>G :CommandTBuffer<CR>
 let g:CommandTMaxFiles=20000
-let g:ctrlp_map = ''  " Leave this empty to disable the default mapping
-" let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_max_height = 50
 
 " put cursor in the right place after a '.'
 nmap . .`[
@@ -107,6 +99,9 @@ set smartcase
 " show the `best match so far' as search strings are typed:
 set incsearch
 
+nnoremap <silent> <leader>v :Align =<Enter>
+vnoremap <silent> <leader>v :Align =<Enter>
+
 " use <Ctrl>+N/<Ctrl>+P to cycle through buffers:
 nnoremap <C-N> :bn<CR>
 nnoremap <C-P> :bN<CR>
@@ -116,6 +111,8 @@ nnoremap <silent> <C-C> :!ltags<Enter><Enter>
 map <Leader>d :call TmuxDebugOpen()<CR>
 map <Leader>D :call TmuxDebugClose()<CR>
 map <silent> <Leader>x :w<CR>:call TmuxDebugRerun()<CR>
+
+execute pathogen#infect()
 
 function! TmuxDebugOpen()
     let output = system('tmux split-window -l 12 && tmux select-pane -t 0')
@@ -131,19 +128,11 @@ endfunction
 
 
 " highlight the current column on <F8>
-highlight CursorColumn cterm=none
-highlight CursorColumn ctermbg=blue
 nnoremap <F8> :set invcursorcolumn<CR>
 
 " highlight the current row on <F9>
-highlight CursorLine cterm=none
-highlight CursorLine ctermbg=blue
 nnoremap <F9> :set invcursorline<CR>
-
-" folding options
-" set foldmethod=indent
-" autocmd BufNewFile,BufRead * execute "normal " "zR"
-"nnoremap  <silent>  <space> :exe 'silent! normal! za'.(foldlevel('.')?'':'l')<cr>
+set cursorline
 
 " Treat angle brackets as matchable pairs
 set matchpairs+=<:>
@@ -156,9 +145,10 @@ imap <C-e> <ESC>A
 
 " Use the termcap that comes with vim
 " set ttybuiltin
+"
 
 " set command completion colors
-highlight Pmenu term=bold ctermbg=4
+"highlight Pmenu term=bold ctermbg=4
 
 " unhighlight search matches...
 map <Leader>s :nohlsearch<cr>
@@ -271,32 +261,4 @@ imap <esc>Oy 9
 imap <esc>Oz 0
 
 " pairs
-" noremap! "" ""<left>
-" noremap! '' ''<left>
-"
-" noremap! (( ()<left>
-" noremap! (<cr> (<cr>)<c-o>O
-" noremap! (; ();<esc>hi
-" noremap! (<cr>; (<cr>);<c-o>O
-" noremap! ('; ('');<esc>hhi
-" noremap! ("; ("");<esc>hhi
-" noremap! (' ('')<esc>hi
-" noremap! (" ("")<esc>hi
-"
-" noremap! {{ {}<left>
 noremap! {<cr> {<cr>}<c-o>O
-" noremap! {; {};<esc>hi
-" " noremap! {<cr>; {<cr>};<c-o>O
-" noremap! {'; {''};<esc>hhi
-" noremap! {"; {""};<esc>hhi
-" noremap! {' {''}<esc>hi
-" noremap! {" {""}<esc>hi
-"
-" noremap! [[ []<left>
-" noremap! [<cr> [<cr>]<c-o>O
-" noremap! [; [];<esc>hi
-" noremap! [<cr>; [<cr>];<c-o>O
-" noremap! ['; [''];<esc>hhi
-" noremap! ["; [""];<esc>hhi
-" noremap! [' ['']<esc>hi
-" noremap! [" [""]<esc>hi
