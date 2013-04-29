@@ -43,10 +43,6 @@ let mapleader = ","
 noremap H ^
 noremap L $
 
-" toggle invisibles
-noremap <Leader>i :set list!<CR>
-
-" toggle invisibles
 nnoremap <Leader>r :call g:ToggleNuMode()<CR>
 function! g:ToggleNuMode()
     if(&rnu == 1)
@@ -61,6 +57,14 @@ set list
 " set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 set listchars=tab:▸\ ,trail:⋅,extends:❯,precedes:❮
 set showbreak=↪
+
+" toggle invisibles
+noremap <Leader>i :set list!<CR>
+
+" | ¦ ┆ ┊ │
+let g:indentLine_enabled = 0
+let g:indentLine_char = '┊'
+nnoremap <Leader>l :IndentLinesToggle<CR>
 
 " return to last buffer
 noremap <Leader><Leader> <C-^>
