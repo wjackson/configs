@@ -62,3 +62,4 @@ fi
 
 unsetopt correctall
 setopt no_prompt_cr
+setopt interactive_comments
